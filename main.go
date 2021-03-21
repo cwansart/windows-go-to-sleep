@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 	"time"
 
 	"github.com/cwansart/windows-go-to-sleep/suspend"
@@ -36,6 +37,7 @@ func determineDurationType(unit string) time.Duration {
 		t = time.Hour
 	default:
 		log.Fatalf("Invalid value for parameter 'unit': %s\n", unit)
+		os.Exit(1)
 	}
 
 	return t
