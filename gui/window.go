@@ -16,6 +16,23 @@ func Window() {
 		Height: normalFontSize,
 	})
 
+	labelFont, _ := wui.NewFont(wui.FontDesc{
+		Name:   font,
+		Height: bigFontSize,
+		Bold:   true,
+	})
+
+	normalFont, _ := wui.NewFont(wui.FontDesc{
+		Name:   font,
+		Height: normalFontSize,
+	})
+
+	startButtonFont, _ := wui.NewFont(wui.FontDesc{
+		Name:   font,
+		Height: normalFontSize,
+		Bold:   true,
+	})
+
 	window := wui.NewWindow()
 	window.SetFont(windowFont)
 	window.SetInnerSize(310, 266)
@@ -34,14 +51,8 @@ func Window() {
 	methodPanel.SetBorderStyle(wui.PanelBorderSingleLine)
 	window.Add(methodPanel)
 
-	methodLabelFont, _ := wui.NewFont(wui.FontDesc{
-		Name:   font,
-		Height: bigFontSize,
-		Bold:   true,
-	})
-
 	methodLabel := wui.NewLabel()
-	methodLabel.SetFont(methodLabelFont)
+	methodLabel.SetFont(labelFont)
 	methodLabel.SetBounds(10, 10, 150, 13)
 	methodLabel.SetText("Sleep Method")
 	methodPanel.Add(methodLabel)
@@ -55,25 +66,14 @@ func Window() {
 	sleepMethodSelection.SetSelectedIndex(0)
 	methodPanel.Add(sleepMethodSelection)
 
-	timePanelFont, _ := wui.NewFont(wui.FontDesc{
-		Name:   font,
-		Height: normalFontSize,
-	})
-
 	timePanel := wui.NewPanel()
-	timePanel.SetFont(timePanelFont)
+	timePanel.SetFont(normalFont)
 	timePanel.SetBounds(10, 84, 290, 98)
 	timePanel.SetBorderStyle(wui.PanelBorderSingleLine)
 	window.Add(timePanel)
 
-	timeLabelFont, _ := wui.NewFont(wui.FontDesc{
-		Name:   font,
-		Height: bigFontSize,
-		Bold:   true,
-	})
-
 	timeLabel := wui.NewLabel()
-	timeLabel.SetFont(timeLabelFont)
+	timeLabel.SetFont(labelFont)
 	timeLabel.SetBounds(10, 10, 150, 13)
 	timeLabel.SetText("Time")
 	timePanel.Add(timeLabel)
@@ -88,15 +88,9 @@ func Window() {
 	timePanel.Add(comboBox1)
 
 	editLine1 := wui.NewEditLine()
-	editLine1.SetBounds(8, 60, 271, 20)
+	editLine1.SetBounds(8, 60, 270, 20)
 	editLine1.SetText("02:00")
 	timePanel.Add(editLine1)
-
-	startButtonFont, _ := wui.NewFont(wui.FontDesc{
-		Name:   font,
-		Height: normalFontSize,
-		Bold:   true,
-	})
 
 	startButton := wui.NewButton()
 	startButton.SetFont(startButtonFont)
