@@ -1,6 +1,10 @@
 package gui
 
 import (
+	"fmt"
+	"regexp"
+	"strings"
+
 	"github.com/gonutz/wui/v2"
 )
 
@@ -87,10 +91,19 @@ func Window() {
 	comboBox1.SetSelectedIndex(0)
 	timePanel.Add(comboBox1)
 
-	editLine1 := wui.NewEditLine()
-	editLine1.SetBounds(8, 60, 270, 20)
-	editLine1.SetText("02:00")
-	timePanel.Add(editLine1)
+	timeErrorLabel := wui.NewPaintBox()
+	timeErrorLabel.SetHeight(15)
+	timeErrorLabel.SetWidth(270)
+	timeErrorLabel.SetX(10)
+	timeErrorLabel.SetY(80)
+	timeErrorLabel.SetOnPaint(func(c *wui.Canvas) {
+		w, h := c.Size()
+		c.FillRect(0, 0, w, h, wui.RGB(240, 240, 240))
+		c.TextRectFormat(0, 0, w, h, fmt.Sprintf("Invalid time format: %v", timeValidator.String()), wui.FormatTopCenter, wui.Color(wui.RGB(255, 0, 0)))
+	})
+	timeErrorLabel.SetVisible(false)
+	timeErrorLabel.Paint()
+	timePanel.Add(timeErrorLabel)
 
 	startButton := wui.NewButton()
 	startButton.SetFont(startButtonFont)
@@ -98,5 +111,26 @@ func Window() {
 	startButton.SetText("Start")
 	window.Add(startButton)
 
+	timeInput := wui.NewEditLine()
+	timeInput.SetBounds(8, 60, 270, 20)
+	timeInput.SetText("02:00")
+	timeInput.SetOnTextChange(func() {
+		validateTimeInput(timeInput, timeErrorLabel, startButton)
+	})
+	timePanel.Add(timeInput)
+
 	window.Show()
+}
+
+var timeValidator = regexp.MustCompile(`^\d{1,2}:\d{2}$`)
+
+func validateTimeInput(input *wui.EditLine, label *wui.PaintBox, button *wui.Button) {
+	text := strings.TrimSpace(input.Text())
+	if timeValidator.MatchString(text) {
+		button.SetEnabled(true)
+		label.SetVisible(false)
+	} else {
+		button.SetEnabled(false)
+		label.SetVisible(true)
+	}
 }
