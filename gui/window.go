@@ -82,14 +82,14 @@ func Window() {
 	timeLabel.SetText("Time")
 	timePanel.Add(timeLabel)
 
-	comboBox1 := wui.NewComboBox()
-	comboBox1.SetBounds(8, 30, 270, 21)
-	comboBox1.SetItems([]string{
+	countdownMethod := wui.NewComboBox()
+	countdownMethod.SetBounds(8, 30, 270, 21)
+	countdownMethod.SetItems([]string{
 		"Countdown",
 		"Time",
 	})
-	comboBox1.SetSelectedIndex(0)
-	timePanel.Add(comboBox1)
+	countdownMethod.SetSelectedIndex(0)
+	timePanel.Add(countdownMethod)
 
 	timeErrorLabel := wui.NewPaintBox()
 	timeErrorLabel.SetHeight(15)
